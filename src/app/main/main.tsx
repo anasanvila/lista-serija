@@ -1,0 +1,30 @@
+import {Switch, Route} from 'react-router-dom'
+import ShowListPage from '../showList/showListPage'
+import ShowPage from '../show/showPage'
+import AboutPage from '../about/aboutPage'
+import { Container,Box } from '@chakra-ui/react'
+import { Props } from 'framer-motion/types/types'
+
+const Main = (props:Props) => {
+    return (
+        <Box bg={props.background} w='100%' h='100vh'>
+            <Container>
+                <Switch>
+                    <Route exact path="/">
+                        <ShowListPage color={props.color}/>
+                    </Route>
+                    <Route path="/about">
+                        <AboutPage/>
+                    </Route>
+                    <Route path="/show/:id">
+                        <ShowPage/>
+                    </Route>
+                </Switch>
+                {props.children}
+            </Container>
+        </Box>
+    
+    )
+}
+
+export default Main;
