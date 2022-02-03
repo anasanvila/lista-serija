@@ -2,7 +2,7 @@ import {useContext} from 'react';
 import Main from './main/main';
 import Header from '../components/header';
 import Footer from '../components/footer';
-import { ChakraProvider, Container,Box, Text } from '@chakra-ui/react'
+import { ChakraProvider, Box, Text } from '@chakra-ui/react'
 import { ThemeContext } from "../context/themeContext";
 import myChakraTheme from '../styles/theme'
 

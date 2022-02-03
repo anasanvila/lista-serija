@@ -4,12 +4,15 @@ import App from './app/App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from 'react-router-dom'
 import ThemeProvider from './context/themeProvider'
+import SortingProvider from './context/sortingProvider';
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <ThemeProvider>
-        <App />
+        <SortingProvider>
+          <App />
+        </SortingProvider>
       </ThemeProvider>
     </BrowserRouter>
   </React.StrictMode>,

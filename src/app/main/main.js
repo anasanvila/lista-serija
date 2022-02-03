@@ -1,17 +1,20 @@
+import {useContext} from 'react'
 import {Switch, Route} from 'react-router-dom'
+import SortingContext from '../../context/sortingContext'
 import ShowListPage from '../showList/showListPage'
 import ShowPage from '../show/showPage'
 import AboutPage from '../about/aboutPage'
 import { Container,Box } from '@chakra-ui/react'
-import { Props } from 'framer-motion/types/types'
 
-const Main = (props:Props) => {
+const Main = (props) => {
+    const sort = useContext(SortingContext);
+    let sortingMode = sort.state.sortingMode;
     return (
         <Box bg={props.background} w='100%' h='100vh'>
             <Container>
                 <Switch>
                     <Route exact path="/">
-                        <ShowListPage color={props.color}/>
+                        <ShowListPage color={props.color} sortMode={sortingMode}/>
                     </Route>
                     <Route path="/about">
                         <AboutPage/>
@@ -20,7 +23,7 @@ const Main = (props:Props) => {
                         <ShowPage/>
                     </Route>
                 </Switch>
-                {props.children}
+                {props.children}                
             </Container>
         </Box>
     
