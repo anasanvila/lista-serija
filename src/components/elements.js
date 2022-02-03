@@ -1,4 +1,6 @@
 import React from 'react'
+import { Box, Heading } from '@chakra-ui/react'
+import { Link } from 'react-router-dom' 
 
   const List = ({ list }) => (
     <ul>
@@ -13,8 +15,27 @@ import React from 'react'
   
   const Item = ({ item }) => (
     <li key={item.id}>
-      <span key={item.id}>{item.id}-{ item.name} / {item.rating}</span>
+      <Link to={`/show/${item.id}`} >
+        <span key={item.id}>{item.id}-{ item.name} / {item.rating}</span>
+      </Link> 
     </li>
   );
 
-  export {List, Item}
+  const TVShow = ({show}) => (
+    <>
+      <Heading>{show.name}</Heading>
+      <br/>
+      <i>{show.summary}</i>
+      
+      <Box>
+      <br/>
+        <ul>
+          {show.cast?.map((item, index)=>
+            <li key={`${index}-${item.personName}`}>{item.personName}</li>
+          )}
+        </ul>
+      </Box>
+    </>
+  )
+
+  export {List, TVShow}

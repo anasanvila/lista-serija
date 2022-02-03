@@ -1,5 +1,6 @@
 import {useContext} from 'react'
 import {Switch, Route} from 'react-router-dom'
+import {useParams} from 'react-router'
 import SortingContext from '../../context/sortingContext'
 import ShowListPage from '../showList/showListPage'
 import ShowPage from '../show/showPage'
