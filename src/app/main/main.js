@@ -1,6 +1,6 @@
 import {useContext} from 'react'
 import {Switch, Route} from 'react-router-dom'
-import {useParams} from 'react-router'
+import FavouritesPage from '../favourites/favouritesPage'
 import SortingContext from '../../context/sortingContext'
 import ShowListPage from '../showList/showListPage'
 import ShowPage from '../show/showPage'
@@ -19,6 +19,9 @@ const Main = (props) => {
                     </Route>
                     <Route path="/about">
                         <AboutPage/>
+                    </Route>
+                    <Route path="/favourites">
+                        <FavouritesPage/>
                     </Route>
                     <Route path="/show/:id">
                         <ShowPage/>
