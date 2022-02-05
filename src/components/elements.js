@@ -12,6 +12,7 @@ import { Link } from 'react-router-dom'
       ))}
     </ul>
   );
+
   
   const Item = ({ item }) => (
     <li key={item.id}>
@@ -25,8 +26,7 @@ import { Link } from 'react-router-dom'
     <>
       <Heading>{show.name}</Heading>
       <br/>
-      <i>{show.summary}</i>
-      
+      <div dangerouslySetInnerHTML={{ __html: `${show.summary}` }}></div>
       <Box>
       <br/>
         <ul>

@@ -12,7 +12,6 @@ const Header = (props) => {
     sortingMode=sort.state.sortingMode
 
     const handleChange = (e) => {
-        console.log("value = ", e.target.value)
         if (e.target.value === 'id') sort.dispatch({type:'SORT_BY_ID', payload:e.target.value})
         if (e.target.value === 'name') sort.dispatch({type:'SORT_BY_NAME', payload:e.target.value})
         if (e.target.value === 'rate') sort.dispatch({type:'SORT_BY_RATE', payload:e.target.value})
@@ -45,7 +44,7 @@ const Header = (props) => {
             </Container>
         </Box>
         <Box bg='blue.900'  w='100%' color='white' h='43px'>
-            <Container w='70%' p='1px' maxWidth='130ch'>
+            <Container w='80%' p='1px' maxWidth='130ch'>
                 <Flex>
                 <Box p='2'>
                     <Flex direction='row'>

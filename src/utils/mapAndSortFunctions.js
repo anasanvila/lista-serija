@@ -1,3 +1,4 @@
+
 const mapResults = (data) => data.map((item)=> ({
         id: item.id,
         name: item.name,
@@ -8,8 +9,8 @@ const mapResults = (data) => data.map((item)=> ({
 }))
 
 const mapResult = (item) => {
-    const castArray = item._embedded.cast
-    let tmpArr = castArray.map((cast) => ({  
+    const castArray = item._embedded?.cast
+    let tmpArr = castArray && castArray.map((cast) => ({  
         personName:cast.person?.name,
         image: cast.person?.image?.medium
     }))
@@ -19,7 +20,7 @@ const mapResult = (item) => {
         image: item.image?.medium,
         genres: item.genres,
         summary: item.summary,
-        cast: tmpArr
+        cast: tmpArr || []
 })
 }
 
