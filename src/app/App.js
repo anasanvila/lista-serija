@@ -23,11 +23,7 @@ function App() {
     <ChakraProvider theme={myChakraTheme}>
       <Box style={darkMode?colorsDarkMode:colorsLightMode} w='100%'>
         <Header/>
-        <Main>
-          <Text>
-              {darkMode ? "Dark Mode" : "Light Mode"}
-          </Text>
-        </Main>
+          <Main/>
         <Footer/>
       </Box>
     </ChakraProvider>

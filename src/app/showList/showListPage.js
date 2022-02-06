@@ -7,16 +7,17 @@ import { List } from '../../components/elements'
 import { SearchIcon} from '@chakra-ui/icons'
 import { mapAndSortResults } from '../../utils/mapAndSortFunctions'
 import axios from 'axios' 
-import {API_ENDPOINT, API_BASE, API_SEARCH} from '../../components/constants'
+import {API_ENDPOINT, API_BASE, API_PAGE, API_SEARCH} from '../../components/constants'
 
 
-const ShowListPage = (props) => {
+const ShowListPage = () => {
     const [searchTerm, setSearchTerm] = useState('')
     const [url, setUrl] = useState(`${API_ENDPOINT}${API_BASE}`);
     const [shows, dispatchShows] = useReducer(
         showsReducer,
         {data:[], isLoading:false, isError: false, favourites:JSON.parse(localStorage.getItem("favourites"))}
     )
+    const [pageNumber, setPageNumber] = useState(0)
 
     const theme = useContext(ThemeContext);
     let darkMode = theme.state.darkMode;
@@ -42,7 +43,8 @@ const ShowListPage = (props) => {
         async () => {
             dispatchShows({ type: 'SHOWS_FETCH_INIT' })
             try {
-                const res = await axios.get(url);                           
+                const res = await axios.get(url)
+                console.log("res=",res)                         
                 dispatchShows({
                     type: 'SHOWS_FETCH_SUCCESS',
                     payload: mapAndSortResults(res, sortMode)
@@ -50,15 +52,15 @@ const ShowListPage = (props) => {
             } catch {
                 dispatchShows({ type: 'SHOWS_FETCH_FAILURE' })
             }
-        }, [url,sortMode] );
+        }, [url,sortMode,pageNumber] );
     
     useEffect(() => {
         handleFetchShows();
         }, [handleFetchShows]);
         
     useEffect(()=>{
-        searchTerm==='' && setUrl(`${API_ENDPOINT}${API_BASE}`)
-    },[searchTerm])
+        searchTerm==='' && setUrl(`${API_ENDPOINT}${API_BASE}${API_PAGE}${pageNumber}`)
+    },[searchTerm, pageNumber])
     
     const handleSearchInput = (event) => {
         setSearchTerm(event.target.value);
@@ -66,7 +68,7 @@ const ShowListPage = (props) => {
     
     const handleSearchSubmit = () => {
         searchTerm===''
-            ?setUrl(`${API_ENDPOINT}${API_BASE}`)
+            ?setUrl(`${API_ENDPOINT}${API_BASE}${API_PAGE}${pageNumber}`)
             :setUrl(`${API_ENDPOINT}${API_SEARCH}${searchTerm}`);
     };
 
@@ -82,9 +84,23 @@ const ShowListPage = (props) => {
                     onKeyPress={(e) => e.key === 'Enter' && handleSearchSubmit()}/>                              
             </Flex>
         </FormControl>
-        <div>{searchTerm}</div>
         <br />
         {shows.isError && <Text>Something went wrong...</Text>}
+        <Flex direction='row' >
+            <Button 
+                size='xs' 
+                onClick={()=>setPageNumber(pageNumber>1?pageNumber-1:0)} marginRight='10px'>
+                Previous page
+            </Button>
+            <Text fontSize='16px'>{pageNumber}</Text>
+            <Button 
+                size='xs' 
+                marginLeft='10px' 
+                onClick={()=>setPageNumber(pageNumber<240?pageNumber+1:241)} >
+                Next page
+            </Button>
+        </Flex>
+        <br/>
         {shows.isLoading
             ?<Text>Loading...</Text>
             :(
@@ -96,6 +112,7 @@ const ShowListPage = (props) => {
                                      />
      
             )}
+    
     </Container>
     )
 }

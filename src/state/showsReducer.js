@@ -2,7 +2,6 @@ const showsReducer = (state,action) => {
     let newArray
     let favouritesString
     let favouritesArray=[]
-    let favArray
     switch (action.type) {
         case 'SHOWS_FETCH_INIT':
             return {
@@ -30,14 +29,11 @@ const showsReducer = (state,action) => {
                      favouritesString = localStorage.getItem("favourites")
                      favouritesArray = JSON.parse(favouritesString)
             }
-            console.log("Fav array]",favouritesArray)
 
             let ind = favouritesArray.find(item=>item.id===action.payload.id)
 
             if (!ind )  newArray = [...favouritesArray, action.payload]
                else newArray = [...favouritesArray]
-            
-            console.log("new array]",newArray)
 
             localStorage.setItem("favourites", JSON.stringify(newArray))
             return {
@@ -56,7 +52,6 @@ const showsReducer = (state,action) => {
 
             localStorage.setItem("favourites", JSON.stringify(newArray))
 
-            console.log("after remove", newArray)
             return {
                 ...state,
                 favourites: newArray
