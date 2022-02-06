@@ -25,12 +25,8 @@ const mapResult = (item) => {
 }
 
 const mappedData = (data) => data.map(item=>item.show)
-const mapAndSortResults = (res, sortMode) => {
-    let result=res.data
-    if (res.data[0].show) result = mappedData(res.data)
 
-    let resultData = mapResults(result)
-
+const sortArray = (resultData, sortMode) => {    
     let mappedResult = resultData
     if (sortMode==='id') {
         mappedResult = sortById(resultData)
@@ -42,6 +38,14 @@ const mapAndSortResults = (res, sortMode) => {
         mappedResult = sortByRating(resultData)
     }
     return mappedResult
+}
+
+const mapAndSortResults = (res, sortMode) => {
+    let result=res.data
+    if (res.data[0].show) result = mappedData(res.data)
+
+    let resultData = mapResults(result)
+    return sortArray(resultData, sortMode)
 }
 
 
@@ -65,5 +69,5 @@ const sortByName = (data) => {
     return data.sort(compareNames)
 }
 
-export { mapResult, mapAndSortResults }
+export { mapResult, mapAndSortResults, sortArray }
 

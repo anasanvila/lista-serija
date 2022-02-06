@@ -1,10 +1,10 @@
 import {useState, useContext} from 'react'
-import { Box, Flex, Spacer, Container, Text, Select, background } from '@chakra-ui/react'
+import { Box, Flex, Spacer, Container, Text, Select} from '@chakra-ui/react'
 import { Link } from 'react-router-dom' 
 import SortingContext from '../context/sortingContext'
-import SwitchButton from '../components/switchButton'
+import SwitchThemeButton from './switchThemeButton'
 
-const Header = (props) => {
+const Header = () => {
     const [value, setValue] = useState()
 
     const sort = useContext(SortingContext)
@@ -50,7 +50,7 @@ const Header = (props) => {
                     <Flex direction='row'>
                         <Text fontSize='12px' paddingRight='5px' paddingTop='4px'>Switch Dark / Light mode </Text>
                         <Spacer />
-                        <SwitchButton/>
+                        <SwitchThemeButton/>
                     </Flex> 
                     </Box> 
                     <Box p='2' marginLeft='20px'>

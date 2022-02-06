@@ -1,6 +1,7 @@
 import { useState, useReducer, useEffect, useCallback, useContext } from 'react'
 import { Container, Text, Input, FormControl, Button, Flex } from '@chakra-ui/react'
 import { ThemeContext } from '../../context/themeContext'
+import SortingContext from '../../context/sortingContext'
 import showsReducer from '../../state/showsReducer'
 import { List } from '../../components/elements'
 import { SearchIcon} from '@chakra-ui/icons'
@@ -14,10 +15,28 @@ const ShowListPage = (props) => {
     const [url, setUrl] = useState(`${API_ENDPOINT}${API_BASE}`);
     const [shows, dispatchShows] = useReducer(
         showsReducer,
-        {data:[], isLoading:false, isError: false}
-    )       
+        {data:[], isLoading:false, isError: false, favourites:JSON.parse(localStorage.getItem("favourites"))}
+    )
+
     const theme = useContext(ThemeContext);
     let darkMode = theme.state.darkMode;
+
+    const sort = useContext(SortingContext);
+    let sortMode = sort.state.sortingMode;
+
+    const handleAddFav = (item) => {
+        dispatchShows({
+            type:'ADD_FAV_SHOW',
+            payload:item
+        })
+    }
+
+    const handleRemoveFav = (item) => {
+        dispatchShows({
+            type:'REMOVE_FAV_SHOW',
+            payload:item
+        })
+    }
 
     const handleFetchShows = useCallback(
         async () => {
@@ -26,19 +45,19 @@ const ShowListPage = (props) => {
                 const res = await axios.get(url);                           
                 dispatchShows({
                     type: 'SHOWS_FETCH_SUCCESS',
-                    payload: mapAndSortResults(res, props.sortMode)
+                    payload: mapAndSortResults(res, sortMode)
                 })
             } catch {
                 dispatchShows({ type: 'SHOWS_FETCH_FAILURE' })
             }
-        }, [url,props.sortMode] );
+        }, [url,sortMode] );
     
     useEffect(() => {
         handleFetchShows();
         }, [handleFetchShows]);
         
     useEffect(()=>{
-        searchTerm=='' && setUrl(`${API_ENDPOINT}${API_BASE}`)
+        searchTerm==='' && setUrl(`${API_ENDPOINT}${API_BASE}`)
     },[searchTerm])
     
     const handleSearchInput = (event) => {
@@ -69,7 +88,12 @@ const ShowListPage = (props) => {
         {shows.isLoading
             ?<Text>Loading...</Text>
             :(
-                !shows.isError &&<List list={shows.data} />
+                !shows.isError && <List
+                                     list={shows.data}
+                                     handleAddFav = {handleAddFav}
+                                     handleRemoveFav = {handleRemoveFav}
+                                     favList={shows.favourites}
+                                     />
      
             )}
     </Container>

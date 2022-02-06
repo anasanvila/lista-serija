@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { Switch } from '@chakra-ui/react'
 import { ThemeContext } from "../context/themeContext";
 
-export default function SwitchButton() {
+export default function SwitchThemeButton() {
     const theme = useContext(ThemeContext);
     const darkMode = theme.state.darkMode;
   
