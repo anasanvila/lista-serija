@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from 'react'
+import { useContext } from 'react'
 import { sortArray } from '../../utils/mapAndSortFunctions';
 import SortingContext from '../../context/sortingContext';
 
@@ -6,11 +6,10 @@ const FavouritesPage = () => {
     const sort = useContext(SortingContext);
     let sortMode = sort.state.sortingMode;
 
-    let favArray = JSON.parse(localStorage.getItem("favourites"))
-    let sortedFavArray = sortArray(favArray, sortMode)
+    let favouritesArray = JSON.parse(localStorage.getItem("favourites"))
+    let sortedFavArray = sortArray(favouritesArray, sortMode)
     return (
     <>
-        <h1>Fav page</h1>
         <ul>
             {sortedFavArray?.map((item)=>(
             <li key={`${item.id}-fav`}>

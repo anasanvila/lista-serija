@@ -3,7 +3,7 @@ import { Container, Text, Input, FormControl, Button, Flex } from '@chakra-ui/re
 import { ThemeContext } from '../../context/themeContext'
 import SortingContext from '../../context/sortingContext'
 import showsReducer from '../../state/showsReducer'
-import { List } from '../../components/elements'
+import { List } from '../../components/list'
 import { SearchIcon} from '@chakra-ui/icons'
 import { mapAndSortResults } from '../../utils/mapAndSortFunctions'
 import axios from 'axios' 
@@ -43,8 +43,7 @@ const ShowListPage = () => {
         async () => {
             dispatchShows({ type: 'SHOWS_FETCH_INIT' })
             try {
-                const res = await axios.get(url)
-                console.log("res=",res)                         
+                const res = await axios.get(url)     
                 dispatchShows({
                     type: 'SHOWS_FETCH_SUCCESS',
                     payload: mapAndSortResults(res, sortMode)
@@ -88,7 +87,8 @@ const ShowListPage = () => {
         {shows.isError && <Text>Something went wrong...</Text>}
         <Flex direction='row' >
             <Button 
-                size='xs' 
+                size='xs'
+                color='black'
                 onClick={()=>setPageNumber(pageNumber>1?pageNumber-1:0)} marginRight='10px'>
                 Previous page
             </Button>
@@ -96,6 +96,7 @@ const ShowListPage = () => {
             <Button 
                 size='xs' 
                 marginLeft='10px' 
+                color='black'
                 onClick={()=>setPageNumber(pageNumber<240?pageNumber+1:241)} >
                 Next page
             </Button>
@@ -108,7 +109,7 @@ const ShowListPage = () => {
                                      list={shows.data}
                                      handleAddFav = {handleAddFav}
                                      handleRemoveFav = {handleRemoveFav}
-                                     favList={shows.favourites}
+                                     favouritesList={shows.favourites}
                                      />
      
             )}

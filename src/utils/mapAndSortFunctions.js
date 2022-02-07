@@ -24,28 +24,28 @@ const mapResult = (item) => {
 })
 }
 
-const mappedData = (data) => data.map(item=>item.show)
+const takeNestedData = (data) => data.map(item=>item.show)
 
-const sortArray = (resultData, sortMode) => {    
-    let mappedResult = resultData
+const sortArray = (data, sortMode) => {    
+    let sorted = data
     if (sortMode==='id') {
-        mappedResult = sortById(resultData)
+        sorted = sortById(data)
     }
     if (sortMode==='name') {
-        mappedResult = sortByName(resultData)
+        sorted = sortByName(data)
     }
     if (sortMode==='rate') {
-        mappedResult = sortByRating(resultData)
+        sorted = sortByRating(data)
     }
-    return mappedResult
+    return sorted
 }
 
 const mapAndSortResults = (res, sortMode) => {
-    let result=res.data
-    if (res.data[0].show) result = mappedData(res.data)
+    let result = res.data
+    if (res.data[0].show) { result = takeNestedData(res.data) }
 
-    let resultData = mapResults(result)
-    return sortArray(resultData, sortMode)
+    let mappedData = mapResults(result)
+    return sortArray(mappedData, sortMode)
 }
 
 

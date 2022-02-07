@@ -4,7 +4,7 @@ import {API_ENDPOINT, API_BASE} from '../../components/constants'
 import { Container, Text} from '@chakra-ui/react'
 import { mapResult } from '../../utils/mapAndSortFunctions'
 import showReducer from '../../state/showReducer'
-import { TVShow } from '../../components/elements'
+import { TVShow } from '../../components/show'
 import axios from 'axios'
 
 const Show = () => {
@@ -21,9 +21,7 @@ const Show = () => {
             dispatchShow({ type: 'SHOW_FETCH_INIT' })
             try {
                 const result = await axios.get(url);
-                console.log("result for one show",result.data)
                 let mappedData = mapResult(result.data)
-                console.log("mapped data ",mappedData)
                 dispatchShow({
                     type: 'SHOW_FETCH_SUCCESS',
                     payload: mappedData

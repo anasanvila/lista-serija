@@ -1,7 +1,9 @@
 const showsReducer = (state,action) => {
-    let newArray
+
+    let newFavArray
     let favouritesString
-    let favouritesArray=[]
+    let favouritesArray = []
+
     switch (action.type) {
         case 'SHOWS_FETCH_INIT':
             return {
@@ -9,6 +11,7 @@ const showsReducer = (state,action) => {
                 isLoading: true,
                 isError: false,
             };
+
         case 'SHOWS_FETCH_SUCCESS':
             return {
                 ...state,
@@ -16,45 +19,49 @@ const showsReducer = (state,action) => {
                 isError: false,
                 data: action.payload,
             };
+
         case 'SHOWS_FETCH_FAILURE':
             return {
                 ...state,
                 isLoading:false,
                 isError:true,
             };
+
         case 'ADD_FAV_SHOW':
 
             if ((localStorage.getItem("favourites") !== undefined) || 
-                (localStorage.getItem("favourites") !== undefined)){
+                (localStorage.getItem("favourites") !== [])){
                      favouritesString = localStorage.getItem("favourites")
                      favouritesArray = JSON.parse(favouritesString)
             }
 
-            let ind = favouritesArray.find(item=>item.id===action.payload.id)
+            let isAlreadyInFavourites = favouritesArray?.find(item=>item.id===action.payload.id)
 
-            if (!ind )  newArray = [...favouritesArray, action.payload]
-               else newArray = [...favouritesArray]
+            newFavArray = [...favouritesArray]
+            if (!isAlreadyInFavourites )  { newFavArray = [...favouritesArray, action.payload] }
+            
+            localStorage.setItem("favourites", JSON.stringify(newFavArray))
 
-            localStorage.setItem("favourites", JSON.stringify(newArray))
             return {
                     ...state,
-                    favourites: newArray
+                    favourites: newFavArray
                 }
+
         case 'REMOVE_FAV_SHOW':
 
-             if ((localStorage.getItem("favourites") !== undefined) ||
+            if ((localStorage.getItem("favourites") !== undefined) ||
                 (localStorage.getItem("favourites") !== [])){
                     favouritesString = localStorage.getItem("favourites")
                     favouritesArray = JSON.parse(favouritesString)
             }
 
-            newArray = favouritesArray?.filter(item=>item.id!==action.payload)
+            newFavArray = favouritesArray?.filter(item=>item.id!==action.payload)
 
-            localStorage.setItem("favourites", JSON.stringify(newArray))
+            localStorage.setItem("favourites", JSON.stringify(newFavArray))
 
             return {
                 ...state,
-                favourites: newArray
+                favourites: newFavArray
             }
 
         default:

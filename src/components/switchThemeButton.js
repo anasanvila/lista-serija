@@ -14,8 +14,6 @@ export default function SwitchThemeButton() {
     };
   
     return (
-      <Switch onChange={onChange} paddingTop='2px'>
-        {/* <span style={{fontSize:'12px'}}><i>{darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}</i></span> */}
-      </Switch>
+      <Switch onChange={onChange} paddingTop='2px'></Switch>
     );
   }

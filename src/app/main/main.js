@@ -6,9 +6,7 @@ import ShowPage from '../show/showPage'
 import AboutPage from '../about/aboutPage'
 import { Container,Box } from '@chakra-ui/react'
 
-const Main = (props) => {   
-    
-    return (
+const Main = (props) => (
         <Box bg={props.background} w='100%' h='100vh'>
             <Container>
                 <Switch>
@@ -30,9 +28,7 @@ const Main = (props) => {
                 </Switch>
                 {props.children}                
             </Container>
-        </Box>
-    
+        </Box>    
     )
-}
 
 export default Main;

@@ -14,14 +14,15 @@ function App() {
     background:'black',
     color:'white'
   }
+  
   const colorsLightMode = {
     background:'white',
     color:'black'
   }
   
   return (
-    <ChakraProvider theme={myChakraTheme}>
-      <Box style={darkMode?colorsDarkMode:colorsLightMode} w='100%'>
+    <ChakraProvider theme={ myChakraTheme }>
+      <Box style={ darkMode ? colorsDarkMode : colorsLightMode } w='100%'>
         <Header/>
           <Main/>
         <Footer/>

@@ -1,5 +1,12 @@
+import {Heading, Text } from '@chakra-ui/react'
+
 const AboutPage = () => {
-    return <h1>about</h1>
+    return (
+    <>
+        <Heading>About BIT Shows</Heading>
+        <Text>This is some about description</Text>
+    </>
+    )
 }
 
 export default AboutPage
