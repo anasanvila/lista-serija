@@ -4,10 +4,10 @@ import {API_ENDPOINT, API_BASE} from '../../components/constants'
 import { Container, Text} from '@chakra-ui/react'
 import { mapResult } from '../../utils/mapAndSortFunctions'
 import showReducer from '../../state/showReducer'
-import { TVShow } from '../../components/show'
+import { Show } from '../../components/show'
 import axios from 'axios'
 
-const Show = () => {
+const ShowPage = () => {
     const { id } = useParams()
     const [show, dispatchShow] = useReducer(
         showReducer,
@@ -34,16 +34,16 @@ const Show = () => {
     useEffect(()=>handleFetchShow(),[handleFetchShow])
 
     return (
-        <Container>
+        <Container  maxWidth='90vw' p='0'>
             {show.isError && <Text>Something went wrong...</Text>}
             {show.isLoading
                 ?<Text>Loading...</Text>
                 :(
-                    !show.isError &&<TVShow show={show.data} />
+                    !show.isError &&<Show show={show.data} />
         
                 )}
         </Container>
     );
 }
 
-export default Show
+export default ShowPage

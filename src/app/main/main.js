@@ -7,8 +7,7 @@ import AboutPage from '../about/aboutPage'
 import { Container,Box } from '@chakra-ui/react'
 
 const Main = (props) => (
-        <Box bg={props.background} w='100%' h='100vh'>
-            <Container>
+        <Box bg={props.background} w='100%' h='100vh' >
                 <Switch>
                     <Route exact path="/">
                         <ShowListPage 
@@ -26,8 +25,7 @@ const Main = (props) => (
                         <ShowPage/>
                     </Route>
                 </Switch>
-                {props.children}                
-            </Container>
+                {props.children}    
         </Box>    
     )
 

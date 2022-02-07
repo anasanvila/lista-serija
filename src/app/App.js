@@ -2,31 +2,29 @@ import {useContext} from 'react';
 import Main from './main/main';
 import Header from '../components/header';
 import Footer from '../components/footer';
-import { ChakraProvider, Box, Text } from '@chakra-ui/react'
+import { ChakraProvider} from '@chakra-ui/react'
 import { ThemeContext } from "../context/themeContext";
-import myChakraTheme from '../styles/theme'
+import myChakraTheme from '../utils/theme'
 
 function App() {
   const theme = useContext(ThemeContext);
   let darkMode = theme.state.darkMode;
-  
-  const colorsDarkMode = {
-    background:'black',
-    color:'white'
+
+ if (darkMode) {
+   document.body.style.background = 'black'
+   document.body.style.color = 'white'
   }
-  
-  const colorsLightMode = {
-    background:'white',
-    color:'black'
+ if (!darkMode) {
+   document.body.style.background = 'white'
+   document.body.style.color = 'black'
   }
-  
+
+
   return (
-    <ChakraProvider theme={ myChakraTheme }>
-      <Box style={ darkMode ? colorsDarkMode : colorsLightMode } w='100%'>
+    <ChakraProvider theme={ myChakraTheme }>    
         <Header/>
           <Main/>
         <Footer/>
-      </Box>
     </ChakraProvider>
   );
 }

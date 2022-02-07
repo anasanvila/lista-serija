@@ -11,3 +11,8 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.css-mikc7i {
+  flex: 1 !important;
+  height:100%!important;
+}

@@ -1,9 +1,9 @@
 import { useState, useReducer, useEffect, useCallback, useContext } from 'react'
-import { Container, Text, Input, FormControl, Button, Flex } from '@chakra-ui/react'
+import { Container, Text, Box, Wrap, WrapItem, SimpleGrid,Center, Input, FormControl, Stack, Button, Flex } from '@chakra-ui/react'
 import { ThemeContext } from '../../context/themeContext'
 import SortingContext from '../../context/sortingContext'
 import showsReducer from '../../state/showsReducer'
-import { List } from '../../components/list'
+import { ShowCard } from '../../components/showCard'
 import { SearchIcon} from '@chakra-ui/icons'
 import { mapAndSortResults } from '../../utils/mapAndSortFunctions'
 import axios from 'axios' 
@@ -72,49 +72,83 @@ const ShowListPage = () => {
     };
 
     return (
-    <Container>
-        <FormControl>
-            <Flex direction='row'p='3'>
-                <Button type='submit' onClick={handleSearchSubmit}                         
-                        background={darkMode?'gray.100':'gray.400'}>
-                    <SearchIcon color={darkMode?'gray.400':'gray.100'}/>
-                </Button>
-                <Input placeholder='Search' onChange={handleSearchInput}
-                    onKeyPress={(e) => e.key === 'Enter' && handleSearchSubmit()}/>                              
-            </Flex>
-        </FormControl>
-        <br />
-        {shows.isError && <Text>Something went wrong...</Text>}
-        <Flex direction='row' >
-            <Button 
-                size='xs'
-                color='black'
-                onClick={()=>setPageNumber(pageNumber>1?pageNumber-1:0)} marginRight='10px'>
-                Previous page
-            </Button>
-            <Text fontSize='16px'>{pageNumber}</Text>
-            <Button 
-                size='xs' 
-                marginLeft='10px' 
-                color='black'
-                onClick={()=>setPageNumber(pageNumber<240?pageNumber+1:241)} >
-                Next page
-            </Button>
-        </Flex>
-        <br/>
-        {shows.isLoading
-            ?<Text>Loading...</Text>
-            :(
-                !shows.isError && <List
-                                     list={shows.data}
-                                     handleAddFav = {handleAddFav}
-                                     handleRemoveFav = {handleRemoveFav}
-                                     favouritesList={shows.favourites}
-                                     />
-     
-            )}
-    
-    </Container>
+        <Center>
+            <Container maxWidth={{sm:'70vw', md:'80vw', lg:'75%', xl:'60%','2xl':'50%'}} p='0'> 
+            
+                <FormControl>
+                    <Flex direction='row'p='5'>               
+                        <SearchIcon
+                            fontSize='22px'
+                            color={darkMode?'white.100':'black'}
+                            onClick={handleSearchSubmit}
+                            marginTop='5px' />
+                        <Input 
+                            placeholder='Search shows'
+                            borderRadius='none'
+                            borderTop='none'
+                            borderLeft='none'
+                            borderRight = 'none'
+                            marginLeft='15px'
+                            width='100%'
+                            onChange={handleSearchInput}
+                            onKeyPress={(e) => e.key === 'Enter' && handleSearchSubmit()}/>                              
+                    </Flex>
+                </FormControl>
+                <br />
+                <Center>
+                {shows.isError && <Text>Something went wrong...</Text>}
+                <Flex direction='row' >
+                    <Button 
+                        size='xs'
+                        color='black'
+                        onClick={()=>setPageNumber(pageNumber>1?pageNumber-1:0)} marginRight='10px'>
+                        Previous page
+                    </Button>
+                    <Text fontSize='16px'>{pageNumber}</Text>
+                    <Button 
+                        size='xs' 
+                        marginLeft='10px' 
+                        color='black'
+                        onClick={()=>setPageNumber(pageNumber<240?pageNumber+1:241)} >
+                        Next page
+                    </Button>
+                </Flex>
+                </Center>
+                <br/>
+                <Center>
+                <Box width='90%'>
+                {shows.isLoading
+                    ?<Text>Loading...</Text>
+                    :(
+ 
+                        !shows.isError && (
+                          
+                                <SimpleGrid 
+                                    minChildWidth={{sm:'300px',md:'170px',lg:'200px',xl:'200px','2xl':'200px'}} 
+                                    columns={3} 
+                                    spacing={{sm:'20px',md:'10px',lg:'20px',xl:'30px','2xl':'40px'}}>
+
+                                {shows?.data?.map( ( item ) => {
+                                    let isFavourite = shows.favourites?.find(favItem=>favItem.id==item.id)
+                                    return (
+                                            <ShowCard 
+                                                isFavourite={isFavourite}
+                                                key={`${item.id}-showCard`}
+                                                handleRemoveFav = {handleRemoveFav}
+                                                handleAddFav = {handleAddFav}
+                                                hasFavIndicator={true}
+                                                item={item} />
+                                    )})      
+                                }
+                                
+                                </SimpleGrid>
+                            
+                            )            
+                    )}
+                </Box>
+                </Center>
+            </Container>
+        </Center>
     )
 }
 
