@@ -1,46 +1,29 @@
-# Getting Started with Create React App
+# Zadatak
+Potrebno je napraviti identicnu kopiju BIT SHOW (https://bit-show-app.netlify.app/ ) projekta.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Potrebno je da kopija ima isti osnovni set funkcionalnosti ali da bude implementirana u sledecim tehnologijama i koristeci sledece alate: 
+- TypeScript (obavezno)
+- Axios - http client (obavezno)
+- Chakra UI (obavezno)
+- Koriscenje hookova i funkcionalnih komponenti (obavezno)
 
-## Available Scripts
+Zahtevi i dodatne funkcionalnosti:
+- Theme switch / Dark i light mode (obavezno)
+- Sortiranje serija po nazivu i/ili po rating-u (opciono) (context)
+- Selektovanje omiljenih serija i prikaz istih na posebnoj strani (omiljene serije ostaju sacuvane i nakon zatvaranja pretrazivaca) (opciono)
+- Paginacija / load more (opciono)
 
-In the project directory, you can run:
+# Resenje
 
-### `npm start`
+- zadatak je uradjen u Javascriptu na `main` branchu
+- krenula sam da konvertujem u typescript na branchu `addingTypescript` ali sam videla da ce mi oduzeti jos vremena pa sam odustala
+- ostale trazene funkcionalnosti su uradjene
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## objasnjenja
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- radi boljeg UX-a dodala sam dodatni header gde stoje: `switch` dugme za menjanje teme i `select` za izbor nacina sortiranja
+- da bi moglo da se primeti kad se sortira po id-ju dodala sam `labelu` u karticama gde se vidi `id`
+- dodala sam `zvezdicu` u karticama koja predstavlja favourites. Kada je crvena zvezdica to znaci da je u favourites, kada je siva znaci da nije. Klikom na zvezdicu se dodaje ili uklanja u favourites. Izabrani se mogu videti na posebnoj stranici Favourites
+- za paginaciju sam dodala prethodnu i sledecu stranu i broj tekuce stranice, mislim da je to bolji UX od `load more` jer je preglednije
+- kada se zeljeni kriterijum unese u `search inputu` i klikne na dugme lupu ili pritisne `enter`, aktivira se API poziv za backend pretragu po zadatom kriterijumu. Bekend vraca 10 prikaza
+- sortiranje po izabranom kriterijumu funkcionise i na glavnoj stranici i na stranici Favourites
