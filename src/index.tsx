@@ -11,7 +11,7 @@ ReactDOM.render(
     <BrowserRouter>
       <ThemeProvider>
         <SortingProvider>
-          <App />
+            <App />
         </SortingProvider>
       </ThemeProvider>
     </BrowserRouter>

@@ -3,8 +3,9 @@ import { Container, Spacer, Box, TagLabel, Tag, Button,Center, HStack, Image, Fl
 import { DragHandleIcon, HamburgerIcon } from '@chakra-ui/icons'
 import CastListView from './castListView'
 import CastGridView from './castGridView'
+import {IShow} from '../utils/interfaces'
 
-const Show = ({show}) => {
+const Show = ({show}:IShow) => {
   const [castListView, setCastListView] = useState(false)
   return (
     <Container maxWidth='100%' p='0'>
@@ -56,7 +57,7 @@ const Show = ({show}) => {
             </Flex>
             <br/>
             <Container marginBottom='100px' maxWidth='100%' p='0'>
-              { castListView ? <CastListView cast={show.cast}/> : <CastGridView cast={show.cast}/> }
+                { castListView ? <CastListView cast={show.cast}/> : <CastGridView cast={show.cast}/> }
             </Container>
         </Container>
       </Center>

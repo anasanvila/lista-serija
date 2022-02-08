@@ -1,6 +1,6 @@
 import { useReducer, useEffect, useCallback } from 'react'
 import { useParams } from 'react-router'
-import {API_ENDPOINT, API_BASE} from '../../components/constants'
+import {API_ENDPOINT, API_BASE} from '../../utils/constants'
 import { Container, Text} from '@chakra-ui/react'
 import { mapResult } from '../../utils/mapAndSortFunctions'
 import showReducer from '../../state/showReducer'

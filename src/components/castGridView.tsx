@@ -1,6 +1,7 @@
 import {Center, Container, Text, Image, SimpleGrid} from '@chakra-ui/react'
+import { IImageCard, ISmallImageCard, ICast, ICastListView } from '../utils/interfaces'
 
-const ImageCard = ({id, image, name}) =>  (
+const ImageCard = ({id, image, name}:IImageCard):JSX.Element =>  (
     <Container 
         marginBottom={6} 
         p='0' maxWidth='100%' 
@@ -23,8 +24,7 @@ const ImageCard = ({id, image, name}) =>  (
     )
 
 
-const SmallImageCard = ({image, name}) => {
-    return (
+const SmallImageCard = ({image, name}:ISmallImageCard):JSX.Element => (
     <Container 
         marginBottom={6}        
         p='0' 
@@ -47,16 +47,15 @@ const SmallImageCard = ({image, name}) => {
           
     </Container>
     )
-}
 
-const CastGridView = ({cast}) => (
+const CastGridView = ({cast}:ICastListView):JSX.Element => (
     <>
         <Container maxWidth='100%' p='0' display={{ md:'none', lg:'none', xl:'none'}} >
             {cast && cast.map( (item,index) => (
                 <ImageCard key={`${item.id}-imageCard-${index}`} image={item.image} name={item.personName}/>) ) } 
         </Container>
         <Container maxWidth='100%'  p='0' display={{ xs:'none', sm:'none'}} >
-        <SimpleGrid columns='6' flexWrap='wrap' spacing='15px'>
+        <SimpleGrid columns={6} flexWrap='wrap' spacing='15px'>
             {cast && cast.map( (item,index) => (
                 
                     <SmallImageCard key={`${item.id}-imageCard-${index}`} image={item.smallImage} name={item.personName}/>

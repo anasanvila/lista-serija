@@ -11,7 +11,7 @@ const Header = () => {
     let sortingMode = 'id'
     sortingMode = sort.state.sortingMode
 
-    const handleChange = (e) => {
+    const handleChange = (e:any):void => {
         if (e.target.value === 'id') sort.dispatch({type:'SORT_BY_ID', payload:e.target.value})
         if (e.target.value === 'name') sort.dispatch({type:'SORT_BY_NAME', payload:e.target.value})
         if (e.target.value === 'rate') sort.dispatch({type:'SORT_BY_RATE', payload:e.target.value})

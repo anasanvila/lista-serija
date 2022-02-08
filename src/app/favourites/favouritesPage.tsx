@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, FC } from 'react'
 import { sortArray } from '../../utils/mapAndSortFunctions';
 import { ShowCard } from '../../components/showCard';
 import { SimpleGrid, Container, Center } from '@chakra-ui/react';
@@ -7,8 +7,9 @@ import SortingContext from '../../context/sortingContext';
 const FavouritesPage = () => {
     const sort = useContext(SortingContext);
     let sortMode = sort.state.sortingMode;
-
-    let favouritesArray = JSON.parse(localStorage.getItem("favourites"))
+    let favouritesString =localStorage.getItem("favourites")
+    let favouritesArray = []
+    if (favouritesString !== null) {favouritesArray=JSON.parse(favouritesString)}
     let sortedFavArray = sortArray(favouritesArray, sortMode)
     return (
         <Center>
@@ -20,7 +21,8 @@ const FavouritesPage = () => {
 
                     {sortedFavArray.map( ( item ) => (
                                 <ShowCard 
-                                    hasFavIndicator={false}
+                                    hasFavStarIndicator={false}
+                                    key={`${item.id}`}
                                     item={item} />
                     ))     
                     }

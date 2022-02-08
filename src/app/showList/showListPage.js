@@ -1,5 +1,5 @@
 import { useState, useReducer, useEffect, useCallback, useContext } from 'react'
-import { Container, Text, Box, Wrap, WrapItem, SimpleGrid,Center, Input, FormControl, Stack, Button, Flex } from '@chakra-ui/react'
+import { Container, Text, Box, SimpleGrid,Center, Input, FormControl, Button, Flex } from '@chakra-ui/react'
 import { ThemeContext } from '../../context/themeContext'
 import SortingContext from '../../context/sortingContext'
 import showsReducer from '../../state/showsReducer'
@@ -7,7 +7,7 @@ import { ShowCard } from '../../components/showCard'
 import { SearchIcon} from '@chakra-ui/icons'
 import { mapAndSortResults } from '../../utils/mapAndSortFunctions'
 import axios from 'axios' 
-import {API_ENDPOINT, API_BASE, API_PAGE, API_SEARCH} from '../../components/constants'
+import {API_ENDPOINT, API_BASE, API_PAGE, API_SEARCH} from '../../utils/constants'
 
 
 const ShowListPage = () => {
@@ -15,7 +15,8 @@ const ShowListPage = () => {
     const [url, setUrl] = useState(`${API_ENDPOINT}${API_BASE}`);
     const [shows, dispatchShows] = useReducer(
         showsReducer,
-        {data:[], isLoading:false, isError: false, favourites:JSON.parse(localStorage.getItem("favourites"))}
+        {data:[], isLoading:false, isError: false, 
+            favourites:JSON.parse(localStorage.getItem("favourites"))}
     )
     const [pageNumber, setPageNumber] = useState(0)
 
@@ -32,10 +33,10 @@ const ShowListPage = () => {
         })
     }
 
-    const handleRemoveFav = (item) => {
+    const handleRemoveFav = (id) => {
         dispatchShows({
             type:'REMOVE_FAV_SHOW',
-            payload:item
+            payload:id
         })
     }
 
@@ -51,7 +52,7 @@ const ShowListPage = () => {
             } catch {
                 dispatchShows({ type: 'SHOWS_FETCH_FAILURE' })
             }
-        }, [url,sortMode,pageNumber] );
+        }, [url,sortMode] );
     
     useEffect(() => {
         handleFetchShows();
@@ -129,14 +130,14 @@ const ShowListPage = () => {
                                     spacing={{sm:'20px',md:'10px',lg:'20px',xl:'30px','2xl':'40px'}}>
 
                                 {shows?.data?.map( ( item ) => {
-                                    let isFavourite = shows.favourites?.find(favItem=>favItem.id==item.id)
+                                    let isFavourite = shows.favourites?.find(favItem=>favItem.id===item.id)
                                     return (
                                             <ShowCard 
                                                 isFavourite={isFavourite}
                                                 key={`${item.id}-showCard`}
                                                 handleRemoveFav = {handleRemoveFav}
                                                 handleAddFav = {handleAddFav}
-                                                hasFavIndicator={true}
+                                                hasFavStarIndicator={true}
                                                 item={item} />
                                     )})      
                                 }
