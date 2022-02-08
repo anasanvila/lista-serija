@@ -2,6 +2,7 @@ import React from 'react'
 import { Box, Tag, Image, Button, Text} from '@chakra-ui/react'
 import { Link } from 'react-router-dom' 
 import { StarIcon} from '@chakra-ui/icons'
+import placeHolderImage from '../images/placeholder.jpg'
 
 const ShowCard = ({isFavourite, item, handleRemoveFav, handleAddFav, hasFavIndicator}) => (
         <Box border='1px solid #E2E8F0' boxShadow="lg" rounded="md" maxWidth='700px' my='5px' _hover={{boxShadow:'0 8px 17px 0 rgba(0,0,0,.2),0 6px 20px 0 rgba(0,0,0,.19)'}}>
@@ -47,7 +48,7 @@ const ShowCard = ({isFavourite, item, handleRemoveFav, handleAddFav, hasFavIndic
   
   const Item = ({ item }) => (
       <Link to={`/show/${item.id}`} >
-        <Image src={item.image} alt={item.id} w='100%' />
+        <Image src={item.image?item.image:placeHolderImage} alt={item.id} w='100%' />
       </Link>
   );
 

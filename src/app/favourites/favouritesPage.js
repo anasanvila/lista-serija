@@ -12,7 +12,7 @@ const FavouritesPage = () => {
     let sortedFavArray = sortArray(favouritesArray, sortMode)
     return (
         <Center>
-            <Container maxWidth={{sm:'70vw', md:'80vw', lg:'75%', xl:'60%','2xl':'50%'}} p='3'> 
+            <Container maxWidth={{sm:'70vw', md:'80vw', lg:'75%', xl:'60%','2xl':'50%'}} p='3' marginBottom='100px'> 
                 <SimpleGrid 
                     minChildWidth={{sm:'300px',md:'170px',lg:'200px',xl:'200px','2xl':'200px'}} 
                     columns={3} 

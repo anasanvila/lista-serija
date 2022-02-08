@@ -1,7 +1,7 @@
 const showsReducer = (state,action) => {
 
-    let newFavArray
-    let favouritesString
+    let newFavArray = []
+    let favouritesString = []
     let favouritesArray = []
 
     switch (action.type) {

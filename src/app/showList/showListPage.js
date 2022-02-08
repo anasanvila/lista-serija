@@ -26,17 +26,25 @@ const ShowListPage = () => {
     let sortMode = sort.state.sortingMode;
 
     const handleAddFav = (item) => {
+        try{
         dispatchShows({
             type:'ADD_FAV_SHOW',
             payload:item
         })
+        } catch (error) {
+            dispatchShows({ type: 'SHOWS_FETCH_FAILURE' })
+        }
     }
 
     const handleRemoveFav = (item) => {
-        dispatchShows({
+        try{
+            dispatchShows({
             type:'REMOVE_FAV_SHOW',
             payload:item
         })
+        } catch (error) {
+            dispatchShows({ type: 'SHOWS_FETCH_FAILURE' })
+        }
     }
 
     const handleFetchShows = useCallback(
@@ -56,6 +64,11 @@ const ShowListPage = () => {
     useEffect(() => {
         handleFetchShows();
         }, [handleFetchShows]);
+    
+    useEffect(()=>{
+        const name = localStorage.getItem('favourites')
+        if (!name) localStorage.setItem("favourites", JSON.stringify([]))
+    },[])
         
     useEffect(()=>{
         searchTerm==='' && setUrl(`${API_ENDPOINT}${API_BASE}${API_PAGE}${pageNumber}`)
@@ -101,6 +114,7 @@ const ShowListPage = () => {
                     <Button 
                         size='xs'
                         color='black'
+                        isDisabled={pageNumber===0}
                         onClick={()=>setPageNumber(pageNumber>1?pageNumber-1:0)} marginRight='10px'>
                         Previous page
                     </Button>
@@ -116,7 +130,7 @@ const ShowListPage = () => {
                 </Center>
                 <br/>
                 <Center>
-                <Box width='90%'>
+                <Box width='90%' marginBottom='100px'>
                 {shows.isLoading
                     ?<Text>Loading...</Text>
                     :(
