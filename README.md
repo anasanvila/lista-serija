@@ -2,7 +2,6 @@
 Potrebno je napraviti identicnu kopiju BIT SHOW (https://bit-show-app.netlify.app/ ) projekta.
 
 Potrebno je da kopija ima isti osnovni set funkcionalnosti ali da bude implementirana u sledecim tehnologijama i koristeci sledece alate: 
-- TypeScript (obavezno)
 - Axios - http client (obavezno)
 - Chakra UI (obavezno)
 - Koriscenje hookova i funkcionalnih komponenti (obavezno)
@@ -16,7 +15,6 @@ Zahtevi i dodatne funkcionalnosti:
 # Resenje
 
 - zadatak je urađen u Javascriptu na `main` branchu
-- krenula sam da konvertujem u typescript na branchu `addingTypescript` ali sam videla da će mi oduzeti još vremena pa sam odustala
 - ostale tražene funkcionalnosti su urađene
 - deploy je na: https://aleksandra-djordjevic.com/
 
